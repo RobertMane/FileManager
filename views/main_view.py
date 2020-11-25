@@ -6,6 +6,8 @@ from views.operations_widget import MainWidget
 from utilities.system_elements_basic_operations import SystemElementsBasicOperations
 from utilities.archiving_operations import ArchivingOperations
 
+
+
 class Window(QMainWindow):
     
     # CONSTANTS
@@ -149,6 +151,6 @@ class Window(QMainWindow):
     # Method which is executed when we press Delete menu button
     def delete(self):
 
-       # SystemElementsBasicOperations.removeFile("C:\Robert\TEST_FILE_MANAGER\\test.zip")
-       SystemElementsBasicOperations.removeDirectory("C:\Robert\TEST_FILE_MANAGER\Directory")
+       SystemElementsBasicOperations.removeFile("C:\Robert\TEST_FILE_MANAGER\\file.txt")
+       #SystemElementsBasicOperations.removeDirectory("C:\Robert\TEST_FILE_MANAGER\Directory")
        
