@@ -1,9 +1,10 @@
 from PySide2.QtGui import QStandardItem
 
 class DirectoryTreeItem(QStandardItem):
-    def __init__(self, text=None):
+    def __init__(self, directory):
         super(DirectoryTreeItem, self).__init__()
-        self.setText(text)
+        self._directory = directory
+        self.setText(directory.name)
         self.setEditable(False)
 
 

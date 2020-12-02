@@ -1,6 +1,6 @@
-from PySide2.QtWidgets import QWidget, QGridLayout, QPushButton, QTreeView, QFileSystemModel, QComboBox, QPushButton, QFrame
+from PySide2.QtWidgets import QWidget, QPushButton, QComboBox, QFrame, QListView
 from PySide2.QtGui import QIcon
-from PySide2.QtCore import QDir, QSize
+from PySide2.QtCore import QDir, QSize, Slot
 
 from custom_items.tree_view_model import TreeViewModelItem
 from custom_items.tree_view import TreeView
@@ -18,15 +18,15 @@ class MainWidget(QWidget):
     WIDTH = 1440
     HEIGHT = 900
 
-    def __init__(self, parent):        
+    def __init__(self, parent, model, controller):        
         super(MainWidget, self).__init__(parent)
         
-        #self._model = QFileSystemModel(self)
-        
+        self._model = model
+        self._controller = controller
         
         # SYSTEM ELEMENTS TREE VIEW
         
-        self.systemElementsTreeView = QTreeView(self)
+        self.systemElementsTreeView = QListView(self)
         self.systemElementsTreeView.setFixedSize(520,650)
         self.systemElementsTreeView.move(230,120)
 
@@ -43,6 +43,8 @@ class MainWidget(QWidget):
         self.discSelectionComboBox = QComboBox(self)
         self.discSelectionComboBox.setFixedSize(100,30)
         self.discSelectionComboBox.move(230,60)
+        self.discSelectionComboBox.addItems(self._model.combo_box_list)
+        
 
         # BUTTON WHICH TOOGLE ON/OFF THE TREE VIEW CONTAINING THE SELECTED ITEMS TREE VIEW
         self.toogleButton = QPushButton(QIcon(self.TOOGLE_BUTTON_ICON_PATH), self.EMPTY_STRING, self)
@@ -50,28 +52,26 @@ class MainWidget(QWidget):
         self.toogleButton.move(1300,0)
         self.toogleButton.setStyleSheet(self.TOOGLE_BUTTON_CSS_PROPERTY)
 
+        # CONNECT WIDGETS TO CONTROLLER
+        self.discSelectionComboBox.currentTextChanged.connect(self._controller.change_combo_box_selection)
+
+
+        # LISTEN FOR MODEL EVENT SIGNALS
+        self._model.combo_box_selection_changed.connect(self.on_combo_box_selection_changed)
+
+        """
         self.frameRightMenu = QFrame(self)
         self.frameRightMenu.setMinimumSize(QSize(150,self.HEIGHT))
         self.frameRightMenu.setFrameShape(QFrame.StyledPanel)
         self.frameRightMenu.setFrameShadow(QFrame.Raised)
         self.frameRightMenu.move(1100,15)
         self.frameRightMenu.setStyleSheet("background-color: rgb(85, 170, 255);")
-
-
-
-        # TREE VIEW 
         """
-        self._model.setRootPath("C:/")
-        self._model.setFilter(QDir.NoDotAndDotDot | QDir.AllDirs)
-        self.treeView.setModel(self._model)
-        """
-        """
-        self.data = FileSystemData.init()
-        self.treeViewModel=TreeViewModelItem(self.data)
-        self.systemElementsTreeView = TreeView(self.treeViewModel)
-        self.systemElementsTreeView.setFixedSize(520,650)
-        self.systemElementsTreeView.move(230,120)
-        """
+ 
+    @Slot(str)
+    def on_combo_box_selection_changed(self, value):
+        index = self.discSelectionComboBox.findText(value)
+        self.discSelectionComboBox.setCurrentIndex(index)
         
 
 

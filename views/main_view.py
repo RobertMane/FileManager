@@ -1,8 +1,10 @@
 from PySide2.QtWidgets import QMainWindow, QAction, QListWidget
 from PySide2.QtGui import QIcon
 
-# VIEW IMPORT
+from model.operations_widget_model import OperationsWidgetModel
+from controllers.operations_widget_ctrl import OperationsWidgetController
 from views.operations_widget import MainWidget
+
 from utilities.system_elements_basic_operations import SystemElementsBasicOperations
 from utilities.archiving_operations import ArchivingOperations
 
@@ -48,7 +50,7 @@ class Window(QMainWindow):
     HEIGHT = 900
 
     
-    def __init__(self, parent=None):
+    def __init__(self, model, controller, parent = None):
         
         super(Window, self).__init__(parent)
 
@@ -64,7 +66,8 @@ class Window(QMainWindow):
 
         self.create_menus()
 
-        self.main_widget = MainWidget(self)
+        # MAIN WIDGET CREATION
+        self.main_widget = MainWidget(self, model, controller)
         self.main_widget.move(0,50)
         self.main_widget.setFixedSize(self.WIDTH,self.HEIGHT)
 
