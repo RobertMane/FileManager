@@ -41,3 +41,22 @@ class Directory(FileSystemElement):
                     subfiles.append(file)
         
         return subfiles
+
+    @staticmethod
+    def get_all_subelements(directoryPath):
+        directoryContents = os.listdir(directoryPath)
+        subelements = list()
+
+        for name in directoryContents:
+            if (name[0] != Directory.DOT_SIGN and name[0]!= Directory.DOLLAR_SIGN):
+                path = os.path.join(directoryPath, name)
+
+                if os.path.isdir(path):
+                    directory = Directory(name, path)
+                    subelements.append(directory)
+
+                if os.path.isfile(path):
+                    file = File(name, path)
+                    subelements.append(file)
+        
+        return subelements

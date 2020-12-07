@@ -138,4 +138,10 @@ class SystemElementsBasicOperations:
         else:
             return SystemElementsBasicOperations.DIRECTORY_EXTENSION
 
+    @staticmethod
+    def getNameWithoutExtension(name):
+        fileName, extension = os.path.splitext(name)
+
+        return name
+
 

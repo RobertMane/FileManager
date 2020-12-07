@@ -1,4 +1,10 @@
 QMainWindow{
-	background-color:rgb(1,150,250);
-	
+	background-color:rgb(1,150,250);	
+}
+FilesListView::item:selected{
+	background-color:rgba(24,144,240,0.2);	
+}
+QLabel{
+	color:rgb(255,255,255);
+	font-size:22px;
 }
