@@ -28,6 +28,7 @@ class Window(QMainWindow):
     ARCHIVE_ACTION_NAME = "Archive"
     UNARCHIVE_ACTION_NAME = "Unarchive"
     DELETE_ACTION_NAME = "Delete"
+    RENAME_ACTION_NAME = "Rename"
 
     # Icons paths
     APP_ICON_PATH = 'resources/app_icon.png'
@@ -39,6 +40,7 @@ class Window(QMainWindow):
     ARCHIVE_ICON_PATH = 'resources/archive_icon.png'
     UNARCHIVE_ICON_PATH = 'resources/unarchive_icon.png'
     DELETE_ICON_PATH = 'resources/delete_icon.png'
+    RENAME_ICON_PATH = 'resources/rename_icon.png'
 
     # Styles file name
     STYLES_FILE_NAME = "style.qss"
@@ -91,6 +93,7 @@ class Window(QMainWindow):
         archiveAction = QAction(QIcon(self.ARCHIVE_ICON_PATH),self.ARCHIVE_ACTION_NAME,self)
         unarchiveAction = QAction(QIcon(self.UNARCHIVE_ICON_PATH),self.UNARCHIVE_ACTION_NAME,self)
         deleteAction = QAction(QIcon(self.DELETE_ICON_PATH),self.DELETE_ACTION_NAME,self)
+        renameAction = QAction(QIcon(self.RENAME_ICON_PATH),self.RENAME_ACTION_NAME,self)
 
         # Adding actions to the file management menu
         fileMenu.addAction(copyAction)
@@ -100,6 +103,7 @@ class Window(QMainWindow):
         fileMenu.addAction(archiveAction)
         fileMenu.addAction(unarchiveAction)
         fileMenu.addAction(deleteAction)
+        fileMenu.addAction(renameAction)
 
 
         # Adding actions for the menu items
@@ -110,6 +114,7 @@ class Window(QMainWindow):
         archiveAction.triggered.connect(self.archive)
         unarchiveAction.triggered.connect(self.unarchive)
         deleteAction.triggered.connect(self.delete)
+        renameAction.triggered.connect(self.rename)
 
 
     # ========================     FILE MENU METHODS     =================================
@@ -117,43 +122,65 @@ class Window(QMainWindow):
     # Method which is executed when we press Copy menu button
     def copy(self):
 
+        self.main_widget.doCopy()
+        """
         source = "C:\Robert\TEST_FILE_MANAGER\\textfile.txt"
         destinationFolder = "C:\Robert\TEST_FILE_MANAGER\\Directory"
         fileName  = "textfile.txt"
 
         SystemElementsBasicOperations.copyFile(source, destinationFolder, fileName)
+        """
 
     # Method which is executed when we press Move menu button
     def move(self):
+
+        self.main_widget.doMove()
+
+        """
         source = "C:\Robert\TEST_FILE_MANAGER\\textfile.txt"
         destinationFolder = "C:\Robert\TEST_FILE_MANAGER\\Directory"
         fileName  = "textfile.txt"
 
         SystemElementsBasicOperations.moveFile(source, destinationFolder, fileName)
+        """
 
     # Method which is executed when we press Create new file menu button
     def createNewFile(self):
-        SystemElementsBasicOperations.createFile("C:\Robert\TEST_FILE_MANAGER", "file.txt")
+        
+        self.main_widget.doCreateFile()
+
+        #SystemElementsBasicOperations.createFile("C:\Robert\TEST_FILE_MANAGER", "file.txt")
 
     # Method which is executed when we press Create new directory menu button
     def createNewDirectory(self):
-        SystemElementsBasicOperations.createDirectory("C:\Robert\TEST_FILE_MANAGER", "Directory")
+        
+        self.main_widget.doCreateFolder()
+        # SystemElementsBasicOperations.createDirectory("C:\Robert\TEST_FILE_MANAGER", "Directory")
 
     # Method which is executed when we press Archive menu button
     def archive(self):
+        
+        self.main_widget.doArchive()
+        # ArchivingOperations.zipFile("C:\Robert\TEST_FILE_MANAGER\\textfile.txt", "C:\Robert\TEST_FILE_MANAGER\\test.zip")
 
-      #  ArchivingOperations.zipFile("C:\Robert\TEST_FILE_MANAGER\\textfile.txt", "C:\Robert\TEST_FILE_MANAGER\\test.zip")
-
-        ArchivingOperations.zipDirectory("C:\Robert\TEST_FILE_MANAGER\Directory", "C:\Robert\TEST_FILE_MANAGER\\test")
+        # ArchivingOperations.zipDirectory("C:\Robert\TEST_FILE_MANAGER\Directory", "C:\Robert\TEST_FILE_MANAGER\\test")
 
     # Method which is executed when we press Unarchive menu button
     def unarchive(self):
 
-        ArchivingOperations.unzipFile("C:\Robert\TEST_FILE_MANAGER\\test.zip", "C:\Robert\TEST_FILE_MANAGER\Directory")
+        self.main_widget.doUnarchive()
+
+        # ArchivingOperations.unzipFile("C:\Robert\TEST_FILE_MANAGER\\test.zip", "C:\Robert\TEST_FILE_MANAGER\Directory")
 
     # Method which is executed when we press Delete menu button
     def delete(self):
 
-       SystemElementsBasicOperations.removeFile("C:\Robert\TEST_FILE_MANAGER\\file.txt")
-       #SystemElementsBasicOperations.removeDirectory("C:\Robert\TEST_FILE_MANAGER\Directory")
+        self.main_widget.doDelete()
+
+       # SystemElementsBasicOperations.removeFile("C:\Robert\TEST_FILE_MANAGER\\file.txt")
+       # SystemElementsBasicOperations.removeDirectory("C:\Robert\TEST_FILE_MANAGER\Directory")
+
+    def rename(self):
+
+        self.main_widget.doRename()
        

@@ -8,3 +8,11 @@ QLabel{
 	color:rgb(255,255,255);
 	font-size:22px;
 }
+OperationsWidgetButton{
+	background-color: rgb(252, 102, 0);
+	border-radius: 20px;
+}
+OperationsWidgetButton:pressed{
+	background-color: rgb(255, 30, 0);
+	outline:0;	
+}
